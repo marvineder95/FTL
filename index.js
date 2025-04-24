@@ -1,18 +1,41 @@
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("kontaktFormular");
     const successMessage = document.getElementById("successMessage");
+    const nachricht = document.getElementById("nachricht");
+    const zeichenAnzeige = document.getElementById("zeichenAnzeige");
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+            if (bsCollapse) {
+                bsCollapse.hide();
+            }
+        });
+    });
+
+    document.addEventListener('click', function (event) {
+        const isClickInside = navbarCollapse.contains(event.target) || event.target.classList.contains('navbar-toggler');
+        const isMenuShown = navbarCollapse.classList.contains('show');
+
+        if (!isClickInside && isMenuShown) {
+            const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+            if (bsCollapse) {
+                bsCollapse.hide();
+            }
+        }
+    });
 
     form.addEventListener("submit", function (e) {
         e.preventDefault();
 
         const honeypot = form.querySelector('[name="company"]');
         if (honeypot.value) {
-            // Bot detected – don't send the form
+
             console.warn("Spamverdacht – Formular nicht gesendet.");
             return;
         }
-
-        // ... dein EmailJS-Code
     });
 
     form.addEventListener("submit", function (e) {
@@ -37,9 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         );
     });
-
-    const nachricht = document.getElementById("nachricht");
-    const zeichenAnzeige = document.getElementById("zeichenAnzeige");
 
     nachricht.addEventListener("input", function () {
         const aktuelleLaenge = nachricht.value.length;

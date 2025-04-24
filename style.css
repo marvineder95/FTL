@@ -5,10 +5,11 @@ body {
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 120px;
 }
 
 section {
-    scroll-margin-top: 120px; /* entspricht ungefähr der Höhe deiner Navbar */
+    scroll-margin-top: 140px; /* entspricht ungefähr der Höhe deiner Navbar */
 }
 
 .card-text {
